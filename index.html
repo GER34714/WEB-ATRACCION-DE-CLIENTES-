@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0f19" />
+
+  <title>Captación de Jugadores | Sistema Interactivo</title>
+  <meta name="description" content="Sistema de captación de jugadores con webs interactivas: rueda de premios, filtros y derivación directa a WhatsApp. Sin pagos ni apuestas." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sistema de Captación de Jugadores" />
+  <meta property="og:description" content="Webs interactivas para captar jugadores reales y derivarlos a WhatsApp. Rueda de premios y mecánicas simples." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://iili.io/fETkPEv.md.png" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #111827, #020617);
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #22d3ee;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      max-width: 720px;
+      margin: auto;
+      font-size: 1.05rem;
+      color: #cbd5f5;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: 16px;
+      padding: 25px;
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(34,211,238,0.15);
+    }
+
+    .card h3 {
+      color: #22d3ee;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #d1d5f0;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #a5f3fc;
+    }
+
+    .cta p {
+      max-width: 650px;
+      margin: auto;
+      margin-bottom: 30px;
+      color: #cbd5f5;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 40px;
+      background: linear-gradient(90deg, #22d3ee, #38bdf8);
+      color: #020617;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(34,211,238,0.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    footer a {
+      color: #22d3ee;
+      text-decoration: none;
+    }
+
+    /* WhatsApp */
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+
+    .whatsapp img {
+      width: 32px;
+      height: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sistema de Captación de Jugadores</h1>
+    <p>
+      Ofrecé experiencias interactivas que captan atención, filtran interesados
+      y los derivan directo a WhatsApp.  
+      <strong>Sin pagos, sin apuestas. Solo el sistema técnico.</strong>
+    </p>
+  </header>
+
+  <section>
+    <h2 style="text-align:center;color:#a5f3fc;">Las 7 Webs Incluidas</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>🎡 Rueda de Premios</h3>
+        <p>Juego interactivo que engancha al usuario y lo lleva a WhatsApp con mensaje automático.</p>
+      </div>
+
+      <div class="card">
+        <h3>🎁 Beneficio Diario</h3>
+        <p>Web simple con recompensa diaria para incentivar visitas y contactos repetidos.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔥 Promo Flash</h3>
+        <p>Landing con cuenta regresiva para generar urgencia y acción inmediata.</p>
+      </div>
+
+      <div class="card">
+        <h3>📲 Acceso VIP</h3>
+        <p>Filtro previo antes de WhatsApp para segmentar jugadores interesados.</p>
+      </div>
+
+      <div class="card">
+        <h3>🎯 Registro Rápido</h3>
+        <p>Captación directa con formulario liviano y CTA claro.</p>
+      </div>
+
+      <div class="card">
+        <h3>💬 Activación Inactivos</h3>
+        <p>Web pensada para reactivar jugadores que no interactúan hace tiempo.</p>
+      </div>
+
+      <div class="card">
+        <h3>🚀 Landing Principal</h3>
+        <p>Página central para presentar el sistema y derivar a las otras mecánicas.</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>¿Querés verlo funcionando?</h2>
+      <p>
+        Te muestro un ejemplo real para que lo pruebes desde el celular
+        y veas cómo capta contactos.
+      </p>
+      <a class="btn" href="https://wa.me/5491164499481" target="_blank">
+        Ver ejemplo por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    Creado y diseñado por <a href="https://ciborg347.onrender.com" target="_blank">Ciborg 347</a>
+  </footer>
+
+  <!-- WhatsApp Floating -->
+  <a class="whatsapp" href="https://wa.me/5491164499481" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+  </a>
+
+</body>
+</html>
