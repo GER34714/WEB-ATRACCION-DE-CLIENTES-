@@ -5,227 +5,1004 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b0f19" />
 
-  <title>Captación de Jugadores | Sistema Interactivo</title>
-  <meta name="description" content="Sistema de captación de jugadores con webs interactivas: rueda de premios, filtros y derivación directa a WhatsApp. Sin pagos ni apuestas." />
+  <title>Dados VIP | Activación Express</title>
+  <meta name="description" content="Demo premium: tirá los dados, desbloqueá un beneficio y activá por WhatsApp. Sistema técnico de captación, sin pagos ni apuestas." />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Sistema de Captación de Jugadores" />
-  <meta property="og:description" content="Webs interactivas para captar jugadores reales y derivarlos a WhatsApp. Rueda de premios y mecánicas simples." />
+  <meta property="og:title" content="Dados VIP | Activación Express" />
+  <meta property="og:description" content="Tirá los dados, desbloqueá un beneficio y activá por WhatsApp. Demo premium de captación." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://iili.io/fETkPEv.md.png" />
+  <meta property="og:locale" content="es_AR" />
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
+    :root{
+      --bg0:#050816;
+      --bg1:#0b1228;
+      --card: rgba(255,255,255,.055);
+      --card2: rgba(255,255,255,.035);
+      --stroke: rgba(167,243,252,.18);
+      --stroke2: rgba(56,189,248,.18);
+      --txt:#e5e7eb;
+      --muted:#b7c2d6;
+      --muted2:#8ea0bf;
+      --c1:#22d3ee;
+      --c2:#38bdf8;
+      --c3:#a78bfa;
+      --ok:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(34,211,238,.12);
+      --r16:16px;
+      --r22:22px;
+      --r28:28px;
+      --max: 1120px;
+
+      /* para que el WA no tape el footer en mobile */
+      --wa-safe-bottom: 92px;
     }
 
-    body {
-      background: radial-gradient(circle at top, #111827, #020617);
-      color: #e5e7eb;
-      line-height: 1.6;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Sora", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--txt);
+      background:
+        radial-gradient(900px 420px at 20% 12%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(760px 420px at 82% 20%, rgba(167,139,250,.15), transparent 60%),
+        radial-gradient(900px 520px at 60% 92%, rgba(56,189,248,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      overflow-x:hidden;
     }
 
-    header {
-      padding: 70px 20px;
-      text-align: center;
+    /* Decorative grid + particles */
+    .bg-grid{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.25;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(closest-side at 50% 25%, rgba(0,0,0,.95), transparent 78%);
+    }
+    .bg-noise{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.08;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      background-size:180px 180px;
+      mix-blend-mode: overlay;
     }
 
-    header h1 {
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 0}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:10px 0 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      user-select:none;
+    }
+    .mark{
+      width:44px; height:44px; border-radius:14px;
+      background:
+        radial-gradient(24px 24px at 30% 35%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(135deg, rgba(34,211,238,.95), rgba(167,139,250,.75));
+      box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset, 0 10px 28px rgba(34,211,238,.14);
+      display:grid; place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .mark:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      transform: rotate(18deg);
+      animation: shimmer 6.2s linear infinite;
+      opacity:.6;
+    }
+    @keyframes shimmer{
+      0%{transform:translateX(-30%) rotate(18deg)}
+      100%{transform:translateX(30%) rotate(18deg)}
+    }
+    .brand strong{font-weight:700; letter-spacing:.2px}
+    .brand small{display:block; color:var(--muted2); margin-top:2px; font-size:.82rem}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:.9rem;
+      backdrop-filter: blur(10px);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--ok));
+      box-shadow: 0 0 20px rgba(52,211,153,.45);
+    }
+
+    .hero{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr; gap:16px}
+    }
+
+    .panel{
+      border-radius: var(--r28);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .panel:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(500px 200px at 12% 14%, rgba(34,211,238,.16), transparent 60%),
+        radial-gradient(500px 220px at 84% 18%, rgba(167,139,250,.14), transparent 62%),
+        radial-gradient(500px 240px at 60% 108%, rgba(56,189,248,.10), transparent 62%);
+      pointer-events:none;
+    }
+
+    .panel-inner{
+      position:relative;
+      padding:26px;
+    }
+    @media (max-width: 520px){
+      .panel-inner{padding:20px}
+    }
+
+    h1{
+      margin:0 0 10px;
       font-size: 2.4rem;
-      font-weight: 700;
-      color: #22d3ee;
-      margin-bottom: 15px;
+      letter-spacing:-.6px;
+      line-height:1.12;
+    }
+    @media (max-width: 520px){
+      h1{font-size: 2.0rem}
     }
 
-    header p {
-      max-width: 720px;
-      margin: auto;
-      font-size: 1.05rem;
-      color: #cbd5f5;
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:1.02rem;
+      max-width: 56ch;
     }
 
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
+    .badges{display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 22px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.035);
+      border:1px solid rgba(167,243,252,.14);
+      color:#dbeafe;
+      font-size:.88rem;
+    }
+    .badge svg{opacity:.95}
+
+    .steps{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:18px;
+    }
+    @media (max-width: 780px){
+      .steps{grid-template-columns:1fr}
+    }
+    .step{
+      padding:14px 14px 16px;
+      border-radius: var(--r16);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .step b{display:block; font-size:.95rem; color:#dbeafe; margin-bottom:4px}
+    .step span{display:block; font-size:.88rem; color:var(--muted2)}
+
+    /* Dice arena */
+    .arena{
+      display:flex; flex-direction:column;
+      justify-content:space-between;
+      min-height: 420px;
+    }
+    @media (max-width: 980px){
+      .arena{min-height: 410px}
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-      margin-top: 40px;
+    .arena-head{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      margin-bottom:14px;
+    }
+    .arena-title{
+      margin:0;
+      font-size:1.05rem;
+      color:#dbeafe;
+      letter-spacing:.2px;
+    }
+    .tries{
+      font-size:.9rem;
+      color:var(--muted2);
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
     }
 
-    .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(34,211,238,0.2);
+    .dice-stage{
+      position:relative;
+      border-radius: var(--r22);
+      background:
+        radial-gradient(220px 180px at 30% 30%, rgba(34,211,238,.12), transparent 65%),
+        radial-gradient(220px 180px at 70% 25%, rgba(167,139,250,.10), transparent 65%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 18px;
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+      min-height: 270px;
+      display:grid;
+      place-items:center;
+    }
+
+    .dice-glow{
+      position:absolute; inset:-40%;
+      background: conic-gradient(from 180deg, rgba(34,211,238,.10), rgba(167,139,250,.12), rgba(56,189,248,.10), rgba(34,211,238,.10));
+      filter: blur(26px);
+      opacity:.65;
+      animation: spin 14s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Dice */
+    .dice{
+      width: 140px;
+      height: 140px;
+      border-radius: 26px;
+      position:relative;
+      background:
+        radial-gradient(70px 70px at 30% 25%, rgba(255,255,255,.22), transparent 55%),
+        linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:
+        0 18px 45px rgba(0,0,0,.35),
+        0 0 0 1px rgba(34,211,238,.16) inset;
+      display:grid;
+      place-items:center;
+      transform: translateZ(0);
+      backdrop-filter: blur(10px);
+    }
+    .dice:before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(34,211,238,.40), rgba(167,139,250,.18), rgba(56,189,248,.22));
+      z-index:-1;
+      filter: blur(14px);
+      opacity:.45;
+    }
+
+    .pips{
+      width: 86%;
+      height: 86%;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .pip{
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      align-self:center;
+      justify-self:center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(34,211,238,.65));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.10) inset,
+        0 10px 22px rgba(34,211,238,.12);
+      opacity:0;
+      transform: scale(.85);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    /* Dice rolling animation */
+    .rolling .dice{
+      animation: roll 1.35s ease-in-out both;
+    }
+    @keyframes roll{
+      0%{transform: rotate(0deg) scale(1)}
+      25%{transform: rotate(18deg) scale(1.03)}
+      50%{transform: rotate(-22deg) scale(0.98)}
+      70%{transform: rotate(14deg) scale(1.02)}
+      100%{transform: rotate(0deg) scale(1)}
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      border:none;
+      cursor:pointer;
+      user-select:none;
       border-radius: 16px;
-      padding: 25px;
-      transition: transform .3s, box-shadow .3s;
+      padding: 14px 16px;
+      font-weight: 700;
+      letter-spacing:.2px;
+      transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btn-primary{
+      background: linear-gradient(90deg, rgba(34,211,238,.95), rgba(56,189,248,.92));
+      color:#04111f;
+      box-shadow: 0 14px 36px rgba(34,211,238,.20);
+    }
+    .btn-primary:hover{box-shadow: 0 16px 44px rgba(34,211,238,.28)}
+    .btn-ghost{
+      background: rgba(255,255,255,.03);
+      color:#dbeafe;
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .btn-ghost:hover{box-shadow: 0 14px 36px rgba(0,0,0,.25)}
+    .btn[disabled]{opacity:.55; cursor:not-allowed; transform:none}
+
+    .result{
+      margin-top:16px;
+      padding:16px;
+      border-radius: var(--r22);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      display:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .result.show{display:block}
+    .result:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(280px 160px at 20% 40%, rgba(34,211,238,.18), transparent 60%),
+        radial-gradient(280px 160px at 80% 20%, rgba(167,139,250,.14), transparent 60%);
+      pointer-events:none;
+      opacity:.7;
+    }
+    .result-inner{position:relative}
+    .result-top{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(34,211,238,.10);
+      border:1px solid rgba(34,211,238,.20);
+      color:#dbeafe;
+      font-size:.9rem;
+    }
+    .chip b{color:#e5e7eb}
+    .benefit-title{
+      margin:10px 0 6px;
+      font-size: 1.05rem;
+      color:#e5e7eb;
+    }
+    .benefit-desc{
+      margin:0;
+      color: var(--muted);
+      font-size:.95rem;
+    }
+    .fineprint{
+      margin-top:10px;
+      color: var(--muted2);
+      font-size: .84rem;
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 30px rgba(34,211,238,0.15);
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      margin:18px 0 0;
     }
 
-    .card h3 {
-      color: #22d3ee;
-      margin-bottom: 10px;
-      font-size: 1.2rem;
+    /* Info section */
+    .section{
+      max-width: var(--max);
+      margin: 18px auto 0;
+      padding: 0 18px;
+    }
+    .grid2{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 980px){ .grid2{grid-template-columns: 1fr} }
+
+    .info-card{
+      border-radius: var(--r28);
+      padding: 18px 18px 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 10px 32px rgba(0,0,0,.22);
+    }
+    .info-card h3{
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color:#dbeafe;
+    }
+    .info-card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .list{
+      margin: 10px 0 0;
+      padding: 0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+    .li{
+      display:flex; gap:10px; align-items:flex-start;
+      color: var(--muted);
+      font-size: .93rem;
+    }
+    .check{
+      width:20px; height:20px; flex:0 0 20px;
+      border-radius: 8px;
+      background: rgba(52,211,153,.12);
+      border:1px solid rgba(52,211,153,.20);
+      display:grid; place-items:center;
+      margin-top:1px;
     }
 
-    .card p {
-      font-size: 0.95rem;
-      color: #d1d5f0;
+    /* Footer */
+    footer{
+      margin-top: 26px;
+      padding: 28px 18px calc(26px + var(--wa-safe-bottom));
+      text-align:center;
+      color: var(--muted2);
+      font-size:.88rem;
     }
+    footer a{color: var(--c1); text-decoration:none}
+    footer a:hover{text-decoration:underline}
 
-    .cta {
-      text-align: center;
-      margin-top: 60px;
-    }
-
-    .cta h2 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: #a5f3fc;
-    }
-
-    .cta p {
-      max-width: 650px;
-      margin: auto;
-      margin-bottom: 30px;
-      color: #cbd5f5;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 32px;
-      border-radius: 40px;
-      background: linear-gradient(90deg, #22d3ee, #38bdf8);
-      color: #020617;
-      font-weight: 600;
-      text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(34,211,238,0.5);
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      font-size: 0.85rem;
-      color: #94a3b8;
-    }
-
-    footer a {
-      color: #22d3ee;
-      text-decoration: none;
-    }
-
-    /* WhatsApp */
-    .whatsapp {
+    /* WhatsApp floating */
+    .whatsapp{
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      right: 18px;
+      bottom: 18px;
       width: 60px;
       height: 60px;
-      background: #25d366;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: #25d366;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
       z-index: 999;
+      border: 1px solid rgba(255,255,255,.22);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .whatsapp:hover{transform: translateY(-2px); box-shadow: 0 18px 52px rgba(0,0,0,.45)}
+    .whatsapp img{width: 32px; height: 32px}
+    @media (max-width: 520px){
+      .whatsapp{right: 14px; bottom: 14px}
     }
 
-    .whatsapp img {
-      width: 32px;
-      height: 32px;
+    /* Small helper */
+    .muted-note{
+      margin-top: 10px;
+      color: var(--muted2);
+      font-size: .86rem;
     }
   </style>
-</head>
+</head><!-- =========================
+PART 2/2 (BODY + JS)
+Pegar debajo de la Parte 1
+========================= -->
 <body>
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
 
-  <header>
-    <h1>Sistema de Captación de Jugadores</h1>
-    <p>
-      Ofrecé experiencias interactivas que captan atención, filtran interesados
-      y los derivan directo a WhatsApp.  
-      <strong>Sin pagos, sin apuestas. Solo el sistema técnico.</strong>
-    </p>
-  </header>
-
-  <section>
-    <h2 style="text-align:center;color:#a5f3fc;">Las 7 Webs Incluidas</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>🎡 Rueda de Premios</h3>
-        <p>Juego interactivo que engancha al usuario y lo lleva a WhatsApp con mensaje automático.</p>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand" aria-label="Marca">
+        <div class="mark" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2l2.6 5.6L20.7 9 16 13l1.3 6.9L12 17.8 6.7 19.9 8 13 3.3 9l6.1-1.4L12 2z"
+              stroke="rgba(4,17,31,.9)" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Dados VIP</strong>
+          <small>Activación Express</small>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>🎁 Beneficio Diario</h3>
-        <p>Web simple con recompensa diaria para incentivar visitas y contactos repetidos.</p>
-      </div>
-
-      <div class="card">
-        <h3>🔥 Promo Flash</h3>
-        <p>Landing con cuenta regresiva para generar urgencia y acción inmediata.</p>
-      </div>
-
-      <div class="card">
-        <h3>📲 Acceso VIP</h3>
-        <p>Filtro previo antes de WhatsApp para segmentar jugadores interesados.</p>
-      </div>
-
-      <div class="card">
-        <h3>🎯 Registro Rápido</h3>
-        <p>Captación directa con formulario liviano y CTA claro.</p>
-      </div>
-
-      <div class="card">
-        <h3>💬 Activación Inactivos</h3>
-        <p>Web pensada para reactivar jugadores que no interactúan hace tiempo.</p>
-      </div>
-
-      <div class="card">
-        <h3>🚀 Landing Principal</h3>
-        <p>Página central para presentar el sistema y derivar a las otras mecánicas.</p>
+      <div class="pill" title="Demo técnica (sin pagos ni apuestas)">
+        <span class="dot"></span>
+        Sistema técnico • demo premium
       </div>
     </div>
 
-    <div class="cta">
-      <h2>¿Querés verlo funcionando?</h2>
-      <p>
-        Te muestro un ejemplo real para que lo pruebes desde el celular
-        y veas cómo capta contactos.
-      </p>
-      <a class="btn" href="https://wa.me/5491164499481" target="_blank">
-        Ver ejemplo por WhatsApp
-      </a>
+    <div class="hero">
+      <!-- Left: pitch -->
+      <div class="panel">
+        <div class="panel-inner">
+          <h1>Tirá los dados y desbloqueá tu beneficio</h1>
+          <p class="lead">
+            Una experiencia simple, rápida y premium para captar interesados y derivarlos directo a WhatsApp
+            con mensaje automático. <b>Sin pagos, sin apuestas.</b>
+          </p>
+
+          <div class="badges">
+            <div class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M7 12l3 3 7-7" stroke="rgba(167,243,252,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              1 intento por dispositivo
+            </div>
+            <div class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 8v4l3 2" stroke="rgba(167,243,252,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="rgba(167,243,252,.55)" stroke-width="2"/>
+              </svg>
+              5 segundos (mobile first)
+            </div>
+            <div class="badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M20 7l-8 8-4-4" stroke="rgba(167,243,252,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 3h12v18H6z" stroke="rgba(167,243,252,.35)" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+              WhatsApp con texto automático
+            </div>
+          </div>
+
+          <div class="steps" aria-label="Cómo funciona">
+            <div class="step">
+              <b>Paso 1</b>
+              <span>Tocá “Tirar ahora”.</span>
+            </div>
+            <div class="step">
+              <b>Paso 2</b>
+              <span>Se revela un beneficio.</span>
+            </div>
+            <div class="step">
+              <b>Paso 3</b>
+              <span>Activás por WhatsApp.</span>
+            </div>
+          </div>
+
+          <div class="muted-note">
+            Nota: esta demo muestra una mecánica interactiva de captación. Las reglas y beneficios son configurables.
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: dice game -->
+      <div class="panel">
+        <div class="panel-inner arena" id="arena">
+          <div>
+            <div class="arena-head">
+              <p class="arena-title">Modo Premium</p>
+              <div class="tries" id="triesPill" aria-live="polite">
+                Intentos: <b id="triesLeft">1</b>
+              </div>
+            </div>
+
+            <div class="dice-stage" id="stage">
+              <div class="dice-glow" aria-hidden="true"></div>
+
+              <div class="dice" id="dice" aria-label="Dado">
+                <div class="pips" id="pips" aria-hidden="true">
+                  <span class="pip" data-pos="1"></span>
+                  <span class="pip" data-pos="2"></span>
+                  <span class="pip" data-pos="3"></span>
+                  <span class="pip" data-pos="4"></span>
+                  <span class="pip" data-pos="5"></span>
+                  <span class="pip" data-pos="6"></span>
+                  <span class="pip" data-pos="7"></span>
+                  <span class="pip" data-pos="8"></span>
+                  <span class="pip" data-pos="9"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-primary" id="rollBtn" type="button">
+                <span>🎲</span> Tirar ahora
+              </button>
+
+              <button class="btn btn-ghost" id="resetBtn" type="button" title="Reinicia la demo (solo para pruebas)">
+                Reiniciar
+              </button>
+            </div>
+
+            <div class="result" id="resultBox" aria-live="polite">
+              <div class="result-inner">
+                <div class="result-top">
+                  <div class="chip">
+                    Resultado: <b id="rolledNumber">–</b>
+                  </div>
+                  <div class="chip" style="background:rgba(167,139,250,.10); border-color:rgba(167,139,250,.20);">
+                    Beneficio: <b id="benefitLabel">–</b>
+                  </div>
+                </div>
+
+                <div class="benefit-title" id="benefitTitle">—</div>
+                <p class="benefit-desc" id="benefitDesc">—</p>
+
+                <div class="actions" style="margin-top:14px">
+                  <a class="btn btn-primary" id="claimBtn" href="#" target="_blank" rel="noopener">
+                    Reclamar por WhatsApp
+                  </a>
+                  <button class="btn btn-ghost" id="secondChanceBtn" type="button" disabled title="Se habilita al reclamar por WhatsApp">
+                    Desbloquear 2º intento
+                  </button>
+                </div>
+
+                <div class="fineprint" id="fineprint">
+                  Tip: si querés un segundo intento, activá por WhatsApp y se habilita.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider" aria-hidden="true"></div>
+
+          <div class="muted-note" style="margin-top:14px">
+            Este sitio es una demostración interactiva. No procesa pagos ni gestiona apuestas.
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <div class="section">
+    <div class="grid2">
+      <div class="info-card">
+        <h3>Qué hace esta mecánica</h3>
+        <p>
+          Convierte visitas frías en conversaciones: el usuario juega, obtiene un resultado y llega a WhatsApp con
+          un mensaje ya etiquetado (demo + número + beneficio).
+        </p>
+
+        <ul class="list" aria-label="Beneficios">
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Se adapta a cualquier “beneficio” (configurable).
+          </li>
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Mensajes automáticos distintos según resultado.
+          </li>
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Mobile-first, rápido y liviano (HTML/CSS/JS).
+          </li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Configurable en 1 minuto</h3>
+        <p>
+          Podés cambiar textos, beneficios, probabilidades y mensajes de WhatsApp sin tocar estructura.
+          Ideal para armar packs de demos “distintas”.
+        </p>
+
+        <ul class="list" aria-label="Config">
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Número de WhatsApp y texto automático.
+          </li>
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Modo “2º intento” desbloqueable (para subir chats).
+          </li>
+          <li class="li">
+            <span class="check" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17l-5-5" stroke="rgba(52,211,153,.95)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            Guarda intento por dispositivo (localStorage).
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <footer>
-    Creado y diseñado por <a href="https://ciborg347.onrender.com" target="_blank">Ciborg 347</a>
+    Creado y diseñado por <a href="https://ciborg347.onrender.com" target="_blank" rel="noopener">Ciborg 347</a>
   </footer>
 
   <!-- WhatsApp Floating -->
-  <a class="whatsapp" href="https://wa.me/5491164499481" target="_blank">
+  <a class="whatsapp" id="waFloat" href="https://wa.me/5491164499481" target="_blank" rel="noopener" aria-label="WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </a>
 
+  <script>
+    (function(){
+      "use strict";
+
+      // =========================
+      // CONFIG
+      // =========================
+      const CONFIG = {
+        demoName: "Dados VIP",
+        waPhone: "5491164499481", // WhatsApp sin +, con código país
+        storageKey: "c347_dice_vip_state_v1",
+        rollDurationMs: 1350,
+        allowSecondTry: true, // segundo intento solo si "activa" (simulado)
+        // Mapeo de dado -> beneficio (editá libre)
+        benefits: {
+          1: { label:"Inicio", title:"Bonificación de bienvenida", desc:"Activación inicial con beneficio de arranque. Te lo habilito por WhatsApp en 1 minuto." },
+          2: { label:"Acceso", title:"Acceso con beneficio activado", desc:"Ingreso con beneficio aplicado para empezar con ventaja desde el primer paso." },
+          3: { label:"Flash", title:"Promo limitada por hoy", desc:"Beneficio disponible por tiempo limitado. Si lo pedís ahora, queda reservado." },
+          4: { label:"Doble", title:"Doble chance premium", desc:"Te habilito un extra premium (incluye 2º intento) al activar por WhatsApp." },
+          5: { label:"VIP", title:"Beneficio VIP", desc:"Activación VIP con condiciones mejoradas. Se libera únicamente por WhatsApp." },
+          6: { label:"Sorpresa", title:"Premio sorpresa", desc:"El beneficio completo se revela en WhatsApp. Es el más alto del día." }
+        }
+      };
+
+      // =========================
+      // DOM
+      // =========================
+      const stage = document.getElementById("stage");
+      const rollBtn = document.getElementById("rollBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const triesLeftEl = document.getElementById("triesLeft");
+
+      const resultBox = document.getElementById("resultBox");
+      const rolledNumberEl = document.getElementById("rolledNumber");
+      const benefitLabelEl = document.getElementById("benefitLabel");
+      const benefitTitleEl = document.getElementById("benefitTitle");
+      const benefitDescEl = document.getElementById("benefitDesc");
+      const claimBtn = document.getElementById("claimBtn");
+      const secondChanceBtn = document.getElementById("secondChanceBtn");
+      const fineprint = document.getElementById("fineprint");
+
+      const pips = Array.from(document.querySelectorAll(".pip"));
+
+      // =========================
+      // STATE (localStorage)
+      // =========================
+      const defaultState = {
+        triesLeft: 1,
+        lastRoll: null,
+        activated: false,
+        secondTryUnlocked: false
+      };
+
+      function loadState(){
+        try{
+          const raw = localStorage.getItem(CONFIG.storageKey);
+          if(!raw) return { ...defaultState };
+          const parsed = JSON.parse(raw);
+          return { ...defaultState, ...parsed };
+        }catch(e){
+          return { ...defaultState };
+        }
+      }
+
+      function saveState(){
+        try{
+          localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+        }catch(e){}
+      }
+
+      let state = loadState();
+
+      // =========================
+      // DICE UI
+      // =========================
+      const faces = {
+        1: [5],
+        2: [1,9],
+        3: [1,5,9],
+        4: [1,3,7,9],
+        5: [1,3,5,7,9],
+        6: [1,3,4,6,7,9]
+      };
+
+      function setFace(n){
+        const on = new Set(faces[n] || []);
+        pips.forEach(el=>{
+          const pos = Number(el.dataset.pos);
+          if(on.has(pos)){
+            el.style.opacity = "1";
+            el.style.transform = "scale(1)";
+          }else{
+            el.style.opacity = "0";
+            el.style.transform = "scale(.85)";
+          }
+        });
+      }
+
+      function randomInt(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      // =========================
+      // WhatsApp helper
+      // =========================
+      function buildWaUrl(rollNumber){
+        const b = CONFIG.benefits[rollNumber] || { label:"-", title:"-", desc:"-" };
+        const msg =
+          `Hola, tiré los dados en la demo "${CONFIG.demoName}" y me salió ${rollNumber} (${b.label}). ` +
+          `Quiero reclamar: ${b.title}.`;
+        const encoded = encodeURIComponent(msg);
+        return `https://wa.me/${CONFIG.waPhone}?text=${encoded}`;
+      }
+
+      function updateUI(){
+        triesLeftEl.textContent = String(state.triesLeft);
+
+        if(state.triesLeft <= 0){
+          rollBtn.disabled = true;
+          rollBtn.textContent = "Sin intentos";
+        }else{
+          rollBtn.disabled = false;
+          rollBtn.innerHTML = "<span>🎲</span> Tirar ahora";
+        }
+
+        if(CONFIG.allowSecondTry && state.activated && !state.secondTryUnlocked){
+          secondChanceBtn.disabled = false;
+          fineprint.textContent = "Listo: ya podés desbloquear tu 2º intento premium.";
+        }else if(CONFIG.allowSecondTry && state.secondTryUnlocked){
+          secondChanceBtn.disabled = true;
+          fineprint.textContent = "2º intento premium ya habilitado. Probalo ahora.";
+        }else{
+          secondChanceBtn.disabled = true;
+          fineprint.textContent = "Tip: si querés un segundo intento, activá por WhatsApp y se habilita.";
+        }
+
+        if(state.lastRoll){
+          showResult(state.lastRoll, false);
+        }else{
+          resultBox.classList.remove("show");
+        }
+      }
+
+      function showResult(n, scrollIntoView){
+        const b = CONFIG.benefits[n] || { label:"—", title:"—", desc:"—" };
+
+        rolledNumberEl.textContent = String(n);
+        benefitLabelEl.textContent = b.label;
+        benefitTitleEl.textContent = b.title;
+        benefitDescEl.textContent = b.desc;
+
+        claimBtn.href = buildWaUrl(n);
+
+        resultBox.classList.add("show");
+        setFace(n);
+
+        if(scrollIntoView){
+          resultBox.scrollIntoView({ behavior:"smooth", block:"nearest" });
+        }
+      }
+
+      // =========================
+      // ACTIONS
+      // =========================
+      let isRolling = false;
+
+      rollBtn.addEventListener("click", () => {
+        if(isRolling) return;
+        if(state.triesLeft <= 0) return;
+
+        isRolling = true;
+        rollBtn.disabled = true;
+        rollBtn.textContent = "Tirando…";
+
+        stage.classList.add("rolling");
+
+        const start = Date.now();
+        const ticker = setInterval(() => {
+          const tmp = randomInt(1,6);
+          setFace(tmp);
+          if(Date.now() - start > CONFIG.rollDurationMs - 180){
+            clearInterval(ticker);
+          }
+        }, 90);
+
+        setTimeout(() => {
+          const n = randomInt(1,6);
+          stage.classList.remove("rolling");
+
+          state.triesLeft = Math.max(0, state.triesLeft - 1);
+          state.lastRoll = n;
+          saveState();
+
+          showResult(n, true);
+          isRolling = false;
+
+          updateUI();
+        }, CONFIG.rollDurationMs);
+      });
+
+      // Simula "activación" cuando tocan WhatsApp
+      claimBtn.addEventListener("click", () => {
+        state.activated = true;
+        saveState();
+        updateUI();
+      });
+
+      secondChanceBtn.addEventListener("click", () => {
+        if(!CONFIG.allowSecondTry) return;
+        if(!state.activated) return;
+        if(state.secondTryUnlocked) return;
+
+        state.triesLeft = Math.max(state.triesLeft, 1);
+        state.secondTryUnlocked = true;
+        saveState();
+        updateUI();
+      });
+
+      resetBtn.addEventListener("click", () => {
+        state = { ...defaultState };
+        saveState();
+        setFace(1);
+        resultBox.classList.remove("show");
+        updateUI();
+      });
+
+      // init
+      setFace(state.lastRoll || 1);
+      updateUI();
+    })();
+  </script>
 </body>
 </html>
